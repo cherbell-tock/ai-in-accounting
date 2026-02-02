@@ -21,15 +21,12 @@ def dbs():
   return(render_template('dbs.html'))
 
 
-@app.route("/dbsPrediction", methods=["GET","POST"])
+@app.route("/dbsPrediction", methods=["POST"])
 def dbsPrediction():
-    q = request.form.get("q")
-    if q is None:
-        return "Missing input", 400
-    q = float(q)
+    q = float(request.form.get("q"))
     r = model.predict([[q]])
     r = r[0][0] 
-    return (render_template("dbsPrediction.html", r=r))
+    return render_template("dbsPrediction.html", r=r)
 
 if __name__ == "__main__":
   app.run()
